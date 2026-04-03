@@ -2,7 +2,7 @@
 
 void timer0Init(void) {
 
-    TCCR0B = (1 << CS01);
+    TCCR0B = (1 << CS01) | (1 << CS00);
     TIMSK0 = (1 << OCIE0A) | (1 << TOIE0);
 }
 
