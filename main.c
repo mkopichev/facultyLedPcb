@@ -2,8 +2,8 @@
 
 int8_t ledNumber = -1;
 uint8_t ledsQuantity = 1;
-uint8_t randomArrayFirst[8];
-uint8_t randomArraySecond[8];
+uint8_t randomArrayFirst[64];
+uint8_t randomArraySecond[64];
 
 int main(void) {
 
