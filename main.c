@@ -21,46 +21,46 @@ int main(void) {
 
     while(1) {
 
-        continue;
+        _NOP();
     }
 }
 
 ISR(TIMER0_OVF_vect) {
 
-    static uint8_t i = 0, dir = 1, t0Counter = 0, j = 0;
+    static int16_t i = 0;
+    static uint8_t j = 0;
+    static bool dir = true;
 
-    if(t0Counter++ >= 0) {
+    if(dir) {
 
-        t0Counter = 0;
-        if(dir) {
+        i+=2;
+        if(i >= 255) {
 
-            i++;
-            if(i >= 255) {
+            i = 255;
+            dir = false;
+        }
+    } else {
 
-                dir = 0;
+        i-=2;
+        if(i <= 0) {
+
+            i = 0;
+            dir = true;
+            if(++j >= sizeof(randomArrayFirst)) {
+
+                j = 0;
             }
-        } else {
+            if(randomArrayFirst[j] % randomArraySecond[j]) {
 
-            i--;
-            if(i <= 0) {
+                ledsQuantity = 3;
+            } else if(randomArraySecond[j] % randomArrayFirst[j]) {
 
-                dir = 1;
-                if(++j >= sizeof(randomArrayFirst)) {
+                ledsQuantity = 2;
+            } else {
 
-                    j = 0;
-                }
-                if(randomArrayFirst[j] % randomArraySecond[j]) {
-
-                    ledsQuantity = 3;
-                } else if(randomArraySecond[j] % randomArrayFirst[j]) {
-
-                    ledsQuantity = 2;
-                } else {
-
-                    ledsQuantity = 1;
-                }
-                ledNumber = randomArrayFirst[j];
+                ledsQuantity = 1;
             }
+            ledNumber = randomArrayFirst[j];
         }
     }
 

@@ -5,6 +5,8 @@
 #include <avr/io.h>
 #include <stdlib.h>
 #include <util/delay.h>
+#include <avr/cpufunc.h>
+#include <stdbool.h>
 #include "leds.h"
 #include "randGen.h"
 
