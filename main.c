@@ -4,11 +4,9 @@ int8_t ledNumber = -1;
 uint8_t ledsQuantity = 1;
 uint8_t randomArrayFirst[64];
 uint8_t randomArraySecond[64];
+uint8_t changeStep = 0;
 
 int main(void) {
-
-    ledsInit();
-    sei();
 
     // Инициализация ГСЧ при старте
     randArrayInit();
@@ -18,6 +16,17 @@ int main(void) {
         rand();
     }
     generateRandArray(randomArraySecond, 64);
+
+    if(randomArrayFirst[0] >= randomArraySecond[0]) {
+
+        changeStep = 1;
+    } else {
+        
+        changeStep = 2;
+    }
+
+    ledsInit();
+    sei();
 
     while(1) {
 
@@ -33,7 +42,7 @@ ISR(TIMER0_OVF_vect) {
 
     if(dir) {
 
-        i+=2;
+        i += changeStep;
         if(i >= 255) {
 
             i = 255;
@@ -41,7 +50,7 @@ ISR(TIMER0_OVF_vect) {
         }
     } else {
 
-        i-=2;
+        i -= changeStep;
         if(i <= 0) {
 
             i = 0;
