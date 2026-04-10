@@ -34,7 +34,7 @@ int main(void) {
     }
 }
 
-ISR(TIMER0_OVF_vect) {
+ISR(TIMER2_OVF_vect) {
 
     static int16_t i = 0;
     static uint8_t j = 0;
@@ -73,7 +73,7 @@ ISR(TIMER0_OVF_vect) {
         }
     }
 
-    OCR0A = i;
+    OCR2 = i;
 
     switch(ledsQuantity) {
     case 1: {
@@ -93,7 +93,7 @@ ISR(TIMER0_OVF_vect) {
     }
 }
 
-ISR(TIMER0_COMPA_vect) {
+ISR(TIMER2_COMP_vect) {
 
     PORTD = 0;
 }
